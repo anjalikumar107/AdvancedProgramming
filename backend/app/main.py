@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-app = FastAPI(title="Gerrit Project Health Dashboard")
+app = FastAPI(title="Android Gerrit Team Health Dashboard")
 
 
 @app.get("/api/health")
