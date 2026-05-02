@@ -1,5 +1,5 @@
 # base URL for Gerrit instance used for API requests
-BASE_URL = "https://android.googlesource.com"
+BASE_URL = "https://android-review.googlesource.com"
 # frontend origin for CORS configuration
 FRONTEND_ORIGIN = "http://localhost:5173"
 # timeout (seconds) for external API requests
