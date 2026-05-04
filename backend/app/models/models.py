@@ -22,8 +22,8 @@ class ProjSummary(BaseModel):
     project: str
     url: str
     open_changes: int
-    merged_changes_30d: int
-    abandoned_changes_30d: int
+    merged_changes_90d: int
+    abandoned_changes_90d: int
     active_contributors: int
     average_open_change_age_days: float
     merge_ratio: float
