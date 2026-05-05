@@ -1,4 +1,6 @@
 from datetime import datetime, timezone
+from app.models.models import ProjSummary
+from app.services.scoring import overall_score, health_label
 
 # convert gerrit timestamp into a python datetime
 def parse_gerrit_date(value: str) -> datetime:
@@ -40,3 +42,28 @@ def average_open_change_age(open_changes: list[dict]) -> float:
         return 0.0
 
     return round(sum(ages) / len(ages), 1)
+
+# convert gerrit data into project summary
+def summary(project_config, open_changes, merged_changes, abandoned_changes):
+    total_closed = max(len(merged_changes) + len(abandoned_changes), 1)
+    # calculate merge ratio
+    merge_ratio = len(merged_changes) / total_closed
+    # scoring using merge ratio
+    overall = overall_score(50, 50, int(merge_ratio * 100))
+    return ProjSummary(
+        team=project_config["team"],
+        project=project_config["project"],
+        url=project_config["url"],
+        open_changes=len(open_changes),
+        merged_changes_90d=len(merged_changes),
+        abandoned_changes_90d=len(abandoned_changes),
+        active_contributors=0,
+        average_open_change_age_days=0,
+        merge_ratio=merge_ratio,
+        abandonment_ratio=1 - merge_ratio,
+        activity_score=50,
+        contribution_score=50,
+        review_health_score=int(merge_ratio * 100),
+        overall_health_score=overall,
+        health_label=health_label(overall),
+    )
