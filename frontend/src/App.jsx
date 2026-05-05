@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function App() {
   return (
     <main style={{ maxWidth: "1100px", margin: "0 auto", padding: "1rem" }}>
