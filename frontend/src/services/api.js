@@ -1,12 +1,11 @@
 import axios from "axios";
 
-// backend API connection
 const api = axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "https://upgraded-happiness-gxqqvg6vvg7ph95jg-8000.app.github.dev/api",
 });
 
-// get all project summaries
 export async function fetchProjects() {
   const response = await api.get("/projects");
+  console.log("API DATA:", response.data);
   return response.data;
 }

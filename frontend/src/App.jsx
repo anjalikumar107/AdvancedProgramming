@@ -1,40 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { fetchProjects } from "./parts/api";
-import ProjectCard from "./parts/ProjectCard";
+import React from "react";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import DashboardPage from "./pages/DashboardPage";
+import ComparePage from "./pages/ComparePage";
+import DetailPage from "./pages/DetailPage";
 
+// handles navigation between the dashboard pages
 export default function App() {
-  const [projects, setProjects] = useState([]);
-
-  // fetch project data once when the page loads
-  useEffect(() => {
-    fetchProjects().then(setProjects);
-  }, []);
-
   return (
-    <main
-      style={{
-        padding: "1rem",
-        background: "#e5e7eb", // light grey background
-        minHeight: "100vh",
-      }}
-    >
-      <section
-        style={{
-          background: "#0f172a", // navy header
-          color: "white",
-          padding: "1.5rem",
-          borderRadius: "12px",
-          marginBottom: "1rem",
-        }}
-      >
-        <h1>Android Gerrit Software Team Health Dashboard</h1>
-        <p>Compare Android Gerrit projects using 90-day review activity.</p>
-      </section>
-
-      {/* display a card for each project */}
-      {projects.map((project) => (
-        <ProjectCard key={project.project} project={project} />
-      ))}
-    </main>
+    <BrowserRouter>
+      <nav style={{ background: "#0f172a", padding: "1rem" }}>
+        <Link style={{ color: "white", marginRight: "1rem" }} to="/">
+          Dashboard
+        </Link>
+        <Link style={{ color: "white" }} to="/compare">
+          Compare
+        </Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/compare" element={<ComparePage />} />
+        <Route path="/project/:projectName" element={<DetailPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

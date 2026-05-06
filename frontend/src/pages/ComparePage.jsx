@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchProjects } from "../api";
+import { fetchProjects } from "../services/api";
 
 // page for comparing project health scores
 export default function ComparePage() {
